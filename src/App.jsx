@@ -1,30 +1,9 @@
-import { useEffect } from "react";
-import api from "./config/axios.config";
+import React from 'react'
 
 const App = () => {
-
-  useEffect(() => {
-    const testBackend = async () => {
-      try {
-        const res = await api.get("/");
-        console.log("Backend response:", res.data);
-      } catch (error) {
-        console.error(
-          "Backend not working:",
-          error.response?.data || error.message
-        );
-      }
-    };
-
-    testBackend();
-  }, []);
-
   return (
-    <div>
-      <h1>Vite + React</h1>
-      <p>Check console for backend status</p>
-    </div>
-  );
-};
+    <div>App</div>
+  )
+}
 
-export default App;
+export default App
