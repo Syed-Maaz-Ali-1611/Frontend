@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Auth from './pages/common/Auth/index'
 const App = () => {
   return (
-    <div>App</div>
+    <Auth />
   )
 }
 
