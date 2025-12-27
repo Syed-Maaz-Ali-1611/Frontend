@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FormInput from "../../../components/FormInput";
 function SignInForm() {
+    
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -19,7 +20,7 @@ function SignInForm() {
     const { email, password } = formData;
     
     alert(`You are login with email: ${email} and password: ${password}`);
-    resetForm();
+    resetForm();    
   };
 
   const resetForm = () => {
