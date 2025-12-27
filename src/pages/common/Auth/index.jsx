@@ -15,6 +15,11 @@ export default function App() {
     "container " + (type === "signUp" ? "right-panel-active" : "");
   return (
     <div className="App">
+      {/* White bold text logo in top left corner */}
+      <div className="page-logo">
+        <span className="logo-text">AUTH <span className="logo-subtext">FLOW</span></span>
+      </div>
+      
       <div className={containerClass} id="container">
         <SignUpForm />
         <SignInForm />

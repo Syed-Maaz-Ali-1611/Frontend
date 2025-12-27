@@ -1,69 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
+import FormInput from "../../../components/FormInput";
+
 function SignUpForm() {
-  const [state, setState] = React.useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    confirmPassword: ""
   });
-  const handleChange = evt => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
+
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    
+    const { name, email, password, confirmPassword } = formData;
+    
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    
+    alert(`You are signed up with name: ${name}, email: ${email}`);
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
     });
   };
 
-  const handleOnSubmit = evt => {
-    evt.preventDefault();
-
-    const { name, email, password } = state;
-    alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
-
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
+  const formFields = [
+    {
+      type: "text",
+      name: "name",
+      placeholder: "Name",
+      value: formData.name,
+      required: true
+    },
+    {
+      type: "email",
+      name: "email",
+      placeholder: "Email",
+      value: formData.email,
+      required: true
+    },
+    {
+      type: "password",
+      name: "password",
+      placeholder: "Password",
+      value: formData.password,
+      required: true
+    },
+    {
+      type: "password",
+      name: "confirmPassword",
+      placeholder: "Confirm Password",
+      value: formData.confirmPassword,
+      required: true
     }
-  };
+  ];
 
   return (
     <div className="form-container sign-up-container">
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleSubmit}>
         <h1>Create Account</h1>
-      
         <span>or use your email for registration</span>
-        <input
-          type="text"
-          name="name"
-          value={state.name}
-          onChange={handleChange}
-          placeholder="Name"
-        />
-        <input
-          type="email"
-          name="email"
-          value={state.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          name="password"
-          value={state.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
-         <input
-          type="cPassword"
-          name="password"
-          value={state.password}
-          onChange={handleChange}
-          placeholder="Confrim Password"
-        />
-        <button>Sign Up</button>
+        
+        {formFields.map((field) => (
+          <FormInput
+            key={field.name}
+            type={field.type}
+            name={field.name}
+            placeholder={field.placeholder}
+            value={field.value}
+            onChange={handleChange}
+            required={field.required}
+          />
+        ))}
+        
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );
